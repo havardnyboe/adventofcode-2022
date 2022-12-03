@@ -16,21 +16,18 @@ def main():
         knapsacks = file.read().strip().splitlines()
 
     for sack in knapsacks:
-        comp1 = set(sack[:len(sack)//2])
-        comp2 = set(sack[len(sack)//2:])
-        priority_sum += get_priority(comp1.intersection(comp2).pop())
+        pocket_1, pocket_2 = set(sack[:len(sack)//2]), set(sack[len(sack)//2:])
+        priority_sum += get_priority(pocket_1.intersection(pocket_2).pop())
 
-    print(priority_sum)
+    print("Part 1:\t", priority_sum)
 
     # --- Part Two ---
     for i in range(0, len(knapsacks), 3):
-        sack1 = set(knapsacks[i])
-        sack2 = set(knapsacks[i + 1])
-        sack3 = set(knapsacks[i + 2])
-        badge_sum += get_priority(sack1.intersection(
-            sack2.intersection(sack3)).pop())
+        sack_1, sack_2, sack_3 = knapsacks[i:i+3]
+        badge_sum += get_priority(set(sack_1).intersection(
+            set(sack_2).intersection(set(sack_3))).pop())
 
-    print(badge_sum)
+    print("Part 2:\t", badge_sum)
 
 
 if __name__ == "__main__":
